@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--uid=&iws1*9*r5(gygoz-$wo)cdv=az9l8z-a9nv(8zh$($!a'
+SECRET_KEY = config('DJANGO_SECRET_KEY', default=None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=False)
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_beat',
     'django_celery_results',
+    'movies',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +132,4 @@ CELERY_BROKER_CONNECT_RETRY_ON_STARTUP = True
 CELERY_BROKER_URL = config(
     'CELERY_BROKER_URL', default='redis://localhost:6379')
 
-CELERT_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
